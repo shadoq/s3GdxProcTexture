@@ -28,16 +28,29 @@ import com.badlogic.gdx.graphics.Pixmap;
 public class Flat implements ProceduralInterface
 {
 
+	/**
+	 * 
+	 * @param pixmap 
+	 */
 	@Override
 	public void generate(Pixmap pixmap){
 		generate(pixmap, Color.BLACK);
 	}
 
+	/**
+	 * 
+	 * @param pixmap 
+	 */
 	@Override
 	public void random(Pixmap pixmap){
 		generate(pixmap, Color.BLACK);
 	}
 
+	/**
+	 * 
+	 * @param pixmap
+	 * @param color 
+	 */
 	public void generate(Pixmap pixmap, Color color){
 		pixmap.setColor(color);
 		pixmap.fill();

@@ -1,16 +1,29 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * *****************************************************************************
+ * Copyright 2013 See AUTHORS file.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * ****************************************************************************
  */
 package net.shad.s3rend.gfx.pixmap.filter;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
 
 /**
- *
- * @author Jarek
+ * Add color RGB noise to the pixmap
+ * 
+ * @author Jaroslaw Czub (http://shad.net.pl)
  */
 public class Noise implements ProceduralInterface, FilterInterface
 {
@@ -24,24 +37,30 @@ public class Noise implements ProceduralInterface, FilterInterface
 		generate(pixmap, 64, 64, 64);
 	}
 
+	/**
+	 * 
+	 * @param pixmap 
+	 */
 	@Override
 	public void filter(Pixmap pixmap){
 		generate(pixmap, 64, 64, 64);
 	}
 
+	/**
+	 * 
+	 * @param pixmap 
+	 */
 	@Override
 	public void random(final Pixmap pixmap){
 		generate(pixmap, (int) (32.0f + Math.random() * 32), (int) (32.0f + Math.random() * 32), (int) (32.0f + Math.random() * 32));
 	}
 
 	/**
-	 *
+	 * Main RGB noise process
 	 * @param pixmap
-	 * @param xCenter
-	 * @param yCenter
-	 * @param xSize
-	 * @param ySize
-	 * @param maxIterations
+	 * @param rangeR - Red noise range
+	 * @param rangeG - Green noise range
+	 * @param rangeB - Blue noise range
 	 */
 	public static void generate(final Pixmap pixmap, int rangeR, int rangeG, int rangeB){
 
@@ -59,6 +78,9 @@ public class Noise implements ProceduralInterface, FilterInterface
 				int b=(rgb & 0x0000ff00) >>> 8;
 				int a=(rgb & 0x000000ff);
 
+				//
+				// Add noise
+				//
 				r=r + (int) ((startR + Math.random() * rangeR));
 				g=g + (int) ((startG + Math.random() * rangeG));
 				b=b + (int) ((startB + Math.random() * rangeB));

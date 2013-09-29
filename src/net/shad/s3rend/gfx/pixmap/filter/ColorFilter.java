@@ -1,6 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * *****************************************************************************
+ * Copyright 2013 See AUTHORS file.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * ****************************************************************************
  */
 package net.shad.s3rend.gfx.pixmap.filter;
 
@@ -9,8 +22,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
 
 /**
- *
- * @author Jarek
+ * Class to process color filter pixmap
+ * 
+ * @author Jaroslaw Czub (http://shad.net.pl)
  */
 public class ColorFilter implements ProceduralInterface, FilterInterface
 {
@@ -24,24 +38,35 @@ public class ColorFilter implements ProceduralInterface, FilterInterface
 		generate(pixmap, Color.WHITE, 255, 255, 255, 127, 127, 127, 127);
 	}
 
+	/**
+	 * 
+	 * @param pixmap 
+	 */
 	@Override
 	public void filter(Pixmap pixmap){
 		generate(pixmap, Color.WHITE, 255, 255, 255, 127, 127, 127, 127);
 	}
 
+	/**
+	 * 
+	 * @param pixmap 
+	 */
 	@Override
 	public void random(final Pixmap pixmap){
 		generate(pixmap, Color.WHITE, (int) 255, 255, 255, (int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255), 127);
 	}
 
 	/**
-	 *
+	 * 
 	 * @param pixmap
-	 * @param xCenter
-	 * @param yCenter
-	 * @param xSize
-	 * @param ySize
-	 * @param maxIterations
+	 * @param colorBase
+	 * @param colorPercentRed
+	 * @param colorPercentGreen
+	 * @param colorPercentBlue
+	 * @param brithness
+	 * @param contrast
+	 * @param saturation
+	 * @param alpha 
 	 */
 	public static void generate(final Pixmap pixmap, Color colorBase, int colorPercentRed, int colorPercentGreen, int colorPercentBlue, int brithness, int contrast, int saturation, int alpha){
 

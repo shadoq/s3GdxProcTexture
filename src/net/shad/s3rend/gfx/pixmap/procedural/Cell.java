@@ -29,16 +29,34 @@ import com.badlogic.gdx.math.Vector3;
 public class Cell implements ProceduralInterface
 {
 
+	/**
+	 * Single operation process 
+	 * @param pixmap 
+	 */
 	@Override
 	public void generate(Pixmap pixmap){
 		generate(pixmap, 128, 64, Color.WHITE, 0, 0);
 	}
 
+	/**
+	 * Random operation process 
+	 * @param pixmap 
+	 */
 	@Override
 	public void random(Pixmap pixmap){
 		generate(pixmap, (float) Math.random(), 4, Color.WHITE, (int) (Math.random() * 3), (int) (Math.random() * 2));
 	}
 
+	/**
+	 * Main operation process. Generate cell texture procedure 
+	 * 
+	 * @param pixmap
+	 * @param regularity
+	 * @param density
+	 * @param color
+	 * @param pattern
+	 * @param chessboard 
+	 */
 	public static void generate(final Pixmap pixmap, float regularity, int density, Color color, int pattern, int chessboard){
 
 		int width=pixmap.getWidth();
@@ -47,6 +65,9 @@ public class Cell implements ProceduralInterface
 		int r, g, b=0;
 		int a=255;
 
+		//
+		// Create random cell point
+		//
 		float[] cellPoint=new float[density * density * 2 + 4];
 		for (int y=0; y < density; y++){
 			for (int x=0; x < density; x++){

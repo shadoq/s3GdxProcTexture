@@ -1,6 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * *****************************************************************************
+ * Copyright 2013 See AUTHORS file.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * ****************************************************************************
  */
 package net.shad.s3rend.gfx.pixmap.filter;
 
@@ -9,8 +22,9 @@ import com.badlogic.gdx.math.Vector3;
 import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
 
 /**
- *
- * @author Jarek
+ * Class to generate normal map with image
+ * Using Sobel filter operation to detect edge of the image
+ * @author Jaroslaw Czub (http://shad.net.pl)
  */
 public class Normals implements ProceduralInterface, FilterInterface
 {
@@ -42,8 +56,10 @@ public class Normals implements ProceduralInterface, FilterInterface
 		generate(pixmap, (int) (32.0f + Math.random() * 64));
 	}
 
-	/*
-	 * 
+	/**
+	 * Main normal map filter process
+	 * @param pixmap
+	 * @param amplify - The bulge value
 	 */
 	public static void generate(final Pixmap pixmap, int amplify){
 

@@ -42,13 +42,15 @@ public class Julia implements ProceduralInterface
 	}
 
 	/**
-	 *
+	 * 
 	 * @param pixmap
 	 * @param xCenter
 	 * @param yCenter
 	 * @param xSize
 	 * @param ySize
-	 * @param maxIterations
+	 * @param xIterations
+	 * @param yIterations
+	 * @param maxIterations 
 	 */
 	public static void generate(final Pixmap pixmap, double xCenter, double yCenter, double xSize, double ySize, double xIterations, double yIterations, int maxIterations){
 

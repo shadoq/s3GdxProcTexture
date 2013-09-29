@@ -1,6 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * *****************************************************************************
+ * Copyright 2013 See AUTHORS file.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * ****************************************************************************
  */
 package net.shad.s3rend.gfx.pixmap.filter;
 
@@ -10,8 +23,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
 
 /**
- *
- * @author Jarek
+ * Add glow light to the pixmap
+ * 
+ * @author Jaroslaw Czub (http://shad.net.pl)
  */
 public class Glow implements ProceduralInterface, FilterInterface
 {
@@ -25,24 +39,34 @@ public class Glow implements ProceduralInterface, FilterInterface
 		generate(pixmap, Color.WHITE, 0.5f, 0.5f, 0.25f, 0.25f, 10, 10);
 	}
 
+	/**
+	 * 
+	 * @param pixmap 
+	 */
 	@Override
 	public void filter(Pixmap pixmap){
 		generate(pixmap, Color.WHITE, 0.5f, 0.5f, 0.25f, 0.25f, 10, 10);
 	}
 
+	/**
+	 * 
+	 * @param pixmap 
+	 */
 	@Override
 	public void random(Pixmap pixmap){
 		generate(pixmap, Color.WHITE, (float) Math.random(), (float) Math.random(), (float) Math.random() * .5f, (float) Math.random() * .5f, 10, 10);
 	}
 
 	/**
-	 *
+	 * 
 	 * @param pixmap
-	 * @param xCenter
-	 * @param yCenter
-	 * @param xSize
-	 * @param ySize
-	 * @param maxIterations
+	 * @param color
+	 * @param centerX
+	 * @param centerY
+	 * @param rayX
+	 * @param rayY
+	 * @param gamma
+	 * @param alpha 
 	 */
 	public static void generate(final Pixmap pixmap, Color color, float centerX, float centerY, float rayX, float rayY, float gamma, float alpha){
 

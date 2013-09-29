@@ -1,6 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * *****************************************************************************
+ * Copyright 2013 See AUTHORS file.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * ****************************************************************************
  */
 package net.shad.s3rend.gfx.pixmap.filter;
 
@@ -8,8 +21,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
 
 /**
- *
- * @author Jarek
+ * Class to generate threshold operation of the image
+ * 
+ * @author Jaroslaw Czub (http://shad.net.pl)
  */
 public class Threshold implements ProceduralInterface, FilterInterface
 {
@@ -41,8 +55,13 @@ public class Threshold implements ProceduralInterface, FilterInterface
 		generate(pixmap, (int) (96.0f + Math.random() * 64), (int) (96.0f + Math.random() * 64), (int) (Math.random() * 4));
 	}
 
-	/*
+	/**
+	 * Main process threshold filter
 	 * 
+	 * @param pixmap
+	 * @param threshold - Threshold value
+	 * @param ratio - Threshold strength
+	 * @param mode - 0 - Expand downwards, 1 - Expand upwards, 2 - Compress below, 3 - Compress above
 	 */
 	public static void generate(final Pixmap pixmap, int threshold, int ratio, int mode){
 
