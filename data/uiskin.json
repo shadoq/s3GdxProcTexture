@@ -1,15 +1,5 @@
 {
-com.badlogic.gdx.graphics.g2d.BitmapFont: { 
-	default-font: { file: default.fnt } ,
-	sans12: { file: sans12.fnt }, 
-	sans13: { file: sans13.fnt }, 
-	sans14: { file: sans14.fnt },
-	sans15: { file: sans15.fnt }, 
-	droid14: { file: droidsans_14.fnt },
-	droid15: { file: droidsans_15.fnt }, 
-	droid16: { file: droidsans_14.fnt },
-	droid17: { file: droidsans_15.fnt }, 
-},
+com.badlogic.gdx.graphics.g2d.BitmapFont: { default-font: { file: default.fnt } },
 com.badlogic.gdx.graphics.Color: {
 	green: { a: 1, b: 0, g: 1, r: 0 },
 	white: { a: 1, b: 1, g: 1, r: 1 },
@@ -35,17 +25,13 @@ com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
 	default-horizontal: { handle: default-splitpane }
 },
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
-	default: { vScroll: default-scroll, hScrollKnob: default-round-large, background: default-rect, hScroll: default-scroll, vScrollKnob: default-round-large },
-	default-transparent: { vScroll: default-scroll, hScrollKnob: default-round-large, background: default-rect-transparent, hScroll: default-scroll, vScrollKnob: default-round-large },
-	default-no-background: { vScroll: default-scroll, hScrollKnob: default-round-large, background: default-rect-none, hScroll: default-scroll, vScrollKnob: default-round-large }
+	default: { vScroll: default-scroll, hScrollKnob: default-round-large, background: default-rect, hScroll: default-scroll, vScrollKnob: default-round-large }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	default: { titleFont: default-font, background: default-window, titleFontColor: white },
-	default-backend: { titleFont: default-font, background: default-window-transparent, titleFontColor: white },
 	dialog: { titleFont: default-font, background: default-window, titleFontColor: white, stageBackground: dialogDim }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
-	default: { background: default-slider, knob: default-slider-knob },
 	default-horizontal: { background: default-slider, knob: default-slider-knob }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
