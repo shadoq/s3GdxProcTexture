@@ -26,7 +26,7 @@ import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
  * Using Sobel filter operation to detect edge of the image
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class Normals implements ProceduralInterface, FilterInterface
+public class Normals implements ProceduralInterface, FilterPixmapInterface
 {
 
 	/**
@@ -68,10 +68,8 @@ public class Normals implements ProceduralInterface, FilterInterface
 
 		Pixmap dstPixmap=new Pixmap(width, height, pixmap.getFormat());
 
-		for (int y=0; y < width; y++){
-			for (int x=0; x < height; x++){
-
-				pixmap.drawLine(x, y, x, y);
+		for (int y=0; y < height; y++){
+			for (int x=0; x < width; x++){
 
 				int rgb=pixmap.getPixel(x, y);
 				int r=(rgb & 0xff000000) >>> 24;

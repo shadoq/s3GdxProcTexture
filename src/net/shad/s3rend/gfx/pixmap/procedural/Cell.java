@@ -20,18 +20,24 @@ package net.shad.s3rend.gfx.pixmap.procedural;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector3;
+import java.util.Random;
 
 /**
  * Generate cell procedure texture
- * 
+ *
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
 public class Cell implements ProceduralInterface
 {
 
+	private static Random randomNumberGenerator=new Random();
+	private static int oldDensity;
+	private static float[] cellPoint;
+
 	/**
-	 * Single operation process 
-	 * @param pixmap 
+	 * Single operation process
+	 *
+	 * @param pixmap
 	 */
 	@Override
 	public void generate(Pixmap pixmap){
@@ -39,8 +45,9 @@ public class Cell implements ProceduralInterface
 	}
 
 	/**
-	 * Random operation process 
-	 * @param pixmap 
+	 * Random operation process
+	 *
+	 * @param pixmap
 	 */
 	@Override
 	public void random(Pixmap pixmap){
@@ -48,14 +55,23 @@ public class Cell implements ProceduralInterface
 	}
 
 	/**
-	 * Main operation process. Generate cell texture procedure 
-	 * 
+	 *
+	 * @param seed
+	 */
+	public static void setSeed(long seed){
+		randomNumberGenerator.setSeed(seed);
+		oldDensity=0;
+	}
+
+	/**
+	 * Main operation process. Generate cell texture procedure
+	 *
 	 * @param pixmap
 	 * @param regularity
 	 * @param density
 	 * @param color
 	 * @param pattern
-	 * @param chessboard 
+	 * @param chessboard
 	 */
 	public static void generate(final Pixmap pixmap, float regularity, int density, Color color, int pattern, int chessboard){
 
@@ -64,22 +80,30 @@ public class Cell implements ProceduralInterface
 
 		int r, g, b=0;
 		int a=255;
+		Vector3 distVect=new Vector3();
+		float dist=0;
+		float rand1=0;
+		float rand2=0;
 
 		//
-		// Create random cell point
+		// Create random cell point, create random cache where necessary
 		//
-		float[] cellPoint=new float[density * density * 2 + 4];
-		for (int y=0; y < density; y++){
-			for (int x=0; x < density; x++){
-				float rand1=(float) Math.random();
-				float rand2=(float) Math.random();
-				cellPoint[(x + y * density) * 2]=(x + 0.5f + (rand1 - 0.5f) * (1 - regularity)) / density - 1.f / width;
-				cellPoint[(x + y * density) * 2 + 1]=(y + 0.5f + (rand2 - 0.5f) * (1 - regularity)) / density - 1.f / height;
+		if (oldDensity != density || cellPoint == null){
+			cellPoint=new float[density * density * 2 + 4];
+			for (int y=0; y < density; y++){
+				for (int x=0; x < density; x++){
+					rand1=randomNumberGenerator.nextFloat();
+					rand2=randomNumberGenerator.nextFloat();
+					cellPoint[(x + y * density) * 2]=(x + 0.5f + (rand1 - 0.5f) * (1 - regularity)) / density - 1.f / width;
+					cellPoint[(x + y * density) * 2 + 1]=(y + 0.5f + (rand2 - 0.5f) * (1 - regularity)) / density - 1.f / height;
+				}
 			}
 		}
 
-		for (int y=0; y < width; y++){
-			for (int x=0; x < height; x++){
+		oldDensity=density;
+
+		for (int y=0; y < height; y++){
+			for (int x=0; x < width; x++){
 
 				float pixelPosX=(float) x / width;
 				float pixelPosY=(float) y / height;
@@ -108,7 +132,7 @@ public class Cell implements ProceduralInterface
 							cellPosY+=1;
 						}
 
-						float dist=new Vector3(pixelPosX, pixelPosY, 0).dst(cellPosX, cellPosY, 0);
+						dist=distVect.set(pixelPosX, pixelPosY, 0).dst(cellPosX, cellPosY, 0);
 
 						if (dist < minDist){
 							nextMinDist=minDist / 2;

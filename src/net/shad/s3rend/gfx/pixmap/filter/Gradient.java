@@ -27,7 +27,7 @@ import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
  * 
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class Gradient implements ProceduralInterface, FilterInterface
+public class Gradient implements ProceduralInterface, FilterPixmapInterface
 {
 
 	/**
@@ -78,8 +78,8 @@ public class Gradient implements ProceduralInterface, FilterInterface
 		float finv_WH=1.0f / (float) (width * height);
 
 
-		for (int y=0; y < width; y++){
-			for (int x=0; x < height; x++){
+		for (int y=0; y < height; y++){
+			for (int x=0; x < width; x++){
 
 				//
 				// Calculate precent of gradient bar

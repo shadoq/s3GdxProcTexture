@@ -25,7 +25,7 @@ import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
  * 
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class Threshold implements ProceduralInterface, FilterInterface
+public class Threshold implements ProceduralInterface, FilterPixmapInterface
 {
 
 	/**
@@ -78,8 +78,8 @@ public class Threshold implements ProceduralInterface, FilterInterface
 			default:
 
 				fRatio=1 + ratio * 0.1f;
-				for (int y=0; y < width; y++){
-					for (int x=0; x < height; x++){
+				for (int y=0; y < height; y++){
+					for (int x=0; x < width; x++){
 
 						int rgb=pixmap.getPixel(x, y);
 						int r=(rgb & 0xff000000) >>> 24;

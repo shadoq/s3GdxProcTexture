@@ -18,14 +18,13 @@
 package net.shad.s3rend.gfx.pixmap.filter;
 
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.math.Vector3;
 import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
 
 /**
  *
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class Alpha implements ProceduralInterface, FilterInterface
+public class Alpha implements ProceduralInterface, FilterPixmapInterface
 {
 
 	/**
@@ -65,8 +64,8 @@ public class Alpha implements ProceduralInterface, FilterInterface
 		int width=pixmap.getWidth();
 		int height=pixmap.getHeight();
 
-		for (int y=0; y < width; y++){
-			for (int x=0; x < height; x++){
+		for (int y=0; y < height; y++){
+			for (int x=0; x < width; x++){
 
 				int rgb=pixmap.getPixel(x, y);
 				int r=(rgb & 0xff000000) >>> 24;

@@ -27,7 +27,7 @@ import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
  * 
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class Glow implements ProceduralInterface, FilterInterface
+public class Glow implements ProceduralInterface, FilterPixmapInterface
 {
 
 	/**
@@ -89,12 +89,12 @@ public class Glow implements ProceduralInterface, FilterInterface
 		float radiusX=1.0f / (float) pxRadiusX;
 		float radiusY=1.0f / (float) pxRadiusY;
 
-		for (int y=0; y < width; y++){
+		for (int y=0; y < height; y++){
 
 			float dy=(float) (y - pxCenterY) * radiusY;
 			float dy2=dy * dy;
 
-			for (int x=0; x < height; x++){
+			for (int x=0; x < width; x++){
 
 				//
 				// Calculate distance at center

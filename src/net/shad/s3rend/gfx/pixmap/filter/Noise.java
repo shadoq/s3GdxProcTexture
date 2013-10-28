@@ -18,15 +18,18 @@
 package net.shad.s3rend.gfx.pixmap.filter;
 
 import com.badlogic.gdx.graphics.Pixmap;
+import java.util.Random;
 import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
 
 /**
  * Add color RGB noise to the pixmap
- * 
+ *
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class Noise implements ProceduralInterface, FilterInterface
+public class Noise implements ProceduralInterface, FilterPixmapInterface
 {
+
+	private static Random randomNumberGenerator=new Random();
 
 	/**
 	 *
@@ -38,8 +41,8 @@ public class Noise implements ProceduralInterface, FilterInterface
 	}
 
 	/**
-	 * 
-	 * @param pixmap 
+	 *
+	 * @param pixmap
 	 */
 	@Override
 	public void filter(Pixmap pixmap){
@@ -47,8 +50,8 @@ public class Noise implements ProceduralInterface, FilterInterface
 	}
 
 	/**
-	 * 
-	 * @param pixmap 
+	 *
+	 * @param pixmap
 	 */
 	@Override
 	public void random(final Pixmap pixmap){
@@ -56,7 +59,16 @@ public class Noise implements ProceduralInterface, FilterInterface
 	}
 
 	/**
+	 *
+	 * @param seed
+	 */
+	public static void setSeed(long seed){
+		randomNumberGenerator.setSeed(seed);
+	}
+
+	/**
 	 * Main RGB noise process
+	 *
 	 * @param pixmap
 	 * @param rangeR - Red noise range
 	 * @param rangeG - Green noise range
@@ -70,8 +82,8 @@ public class Noise implements ProceduralInterface, FilterInterface
 		int startG=-(rangeG / 2);
 		int startB=-(rangeB / 2);
 
-		for (int y=0; y < width; y++){
-			for (int x=0; x < height; x++){
+		for (int y=0; y < height; y++){
+			for (int x=0; x < width; x++){
 				int rgb=pixmap.getPixel(x, y);
 				int r=(rgb & 0xff000000) >>> 24;
 				int g=(rgb & 0x00ff0000) >>> 16;
@@ -81,9 +93,9 @@ public class Noise implements ProceduralInterface, FilterInterface
 				//
 				// Add noise
 				//
-				r=r + (int) ((startR + Math.random() * rangeR));
-				g=g + (int) ((startG + Math.random() * rangeG));
-				b=b + (int) ((startB + Math.random() * rangeB));
+				r=r + (int) ((startR + randomNumberGenerator.nextFloat() * rangeR));
+				g=g + (int) ((startG + randomNumberGenerator.nextFloat() * rangeG));
+				b=b + (int) ((startB + randomNumberGenerator.nextFloat() * rangeB));
 
 				//
 				// Clamp

@@ -26,7 +26,7 @@ import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
  *
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class RotoZoom implements ProceduralInterface, FilterInterface
+public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 {
 
 	private static final float PI=(float) Math.PI;
@@ -96,7 +96,7 @@ public class RotoZoom implements ProceduralInterface, FilterInterface
 		dstPixmap.setColor(Color.RED);
 		dstPixmap.fill();
 
-		for (int y=0; y < width; y++){
+		for (int y=0; y < height; y++){
 
 			//
 			// x' = cos(x)-sin(y) + Center X;
@@ -108,7 +108,7 @@ public class RotoZoom implements ProceduralInterface, FilterInterface
 			//
 			float v=(((s * -tw2) + yc) * zoomY) + centerY;
 
-			for (int x=0; x < height; x++){
+			for (int x=0; x < width; x++){
 
 				int ut=u >= 0 ? (int) u : (int) u - 1;
 				int vt=v >= 0 ? (int) v : (int) v - 1;

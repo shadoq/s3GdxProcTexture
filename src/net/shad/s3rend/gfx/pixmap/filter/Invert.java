@@ -25,7 +25,7 @@ import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
  * 
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class Invert implements ProceduralInterface, FilterInterface
+public class Invert implements ProceduralInterface, FilterPixmapInterface
 {
 
 	/**
@@ -65,8 +65,8 @@ public class Invert implements ProceduralInterface, FilterInterface
 		int width=pixmap.getWidth();
 		int height=pixmap.getHeight();
 
-		for (int y=0; y < width; y++){
-			for (int x=0; x < height; x++){
+		for (int y=0; y < height; y++){
+			for (int x=0; x < width; x++){
 				int rgb=pixmap.getPixel(x, y);
 				int r=(rgb & 0xff000000) >>> 24;
 				int g=(rgb & 0x00ff0000) >>> 16;

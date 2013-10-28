@@ -72,9 +72,9 @@ public class Mandelbrot implements ProceduralInterface
 		float grey=0;
 
 		py=yStart;
-		for (int y=0; y < width; y++){
+		for (int y=0; y < height; y++){
 			px=xStart;
-			for (int x=0; x < height; x++){
+			for (int x=0; x < width; x++){
 
 				zx=0;
 				zy=0;

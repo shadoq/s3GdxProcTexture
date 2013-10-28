@@ -22,6 +22,7 @@ import net.shad.s3rend.gfx.pixmap.filter.*;
 import net.shad.s3rend.gfx.pixmap.procedural.*;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -95,6 +96,7 @@ public class ProceduralPixmapTest implements ApplicationListener
 
 		pixmap=new Pixmap(512, 512, Pixmap.Format.RGBA8888);
 		Mandelbrot.generate(pixmap, 0.0, 0.0, 1.0, 1.0, 32);
+		ColorFilter.generate(pixmap, Color.BLUE, 100, 100, 100, 127, 127, 127, 255);
 		texture=new Texture(pixmap);
 	}
 

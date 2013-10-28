@@ -18,6 +18,7 @@
 package net.shad.s3rend.gfx.pixmap.filter;
 
 import com.badlogic.gdx.graphics.Pixmap;
+import java.util.Random;
 import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
 
 /**
@@ -25,9 +26,11 @@ import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
  * 
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class NoiseGrey implements ProceduralInterface, FilterInterface
+public class NoiseGrey implements ProceduralInterface, FilterPixmapInterface
 {
 
+	private static Random randomNumberGenerator=new Random();
+	
 	/**
 	 *
 	 * @param pixmap
@@ -47,6 +50,10 @@ public class NoiseGrey implements ProceduralInterface, FilterInterface
 		generate(pixmap, (int) (32.0f + Math.random() * 32));
 	}
 
+	public static void setSeed(long seed){
+		randomNumberGenerator.setSeed(seed);
+	}
+	
 	/**
 	 *
 	 * @param pixmap
@@ -62,8 +69,8 @@ public class NoiseGrey implements ProceduralInterface, FilterInterface
 		int height=pixmap.getHeight();
 		int start=-(range / 2);
 
-		for (int y=0; y < width; y++){
-			for (int x=0; x < height; x++){
+		for (int y=0; y < height; y++){
+			for (int x=0; x < width; x++){
 				int rgb=pixmap.getPixel(x, y);
 				int r=(rgb & 0xff000000) >>> 24;
 				int g=(rgb & 0x00ff0000) >>> 16;
@@ -73,7 +80,7 @@ public class NoiseGrey implements ProceduralInterface, FilterInterface
 				//
 				// Add grey noise
 				//
-				int grey=(int) (start + Math.random() * range);
+				int grey=(int) (start + randomNumberGenerator.nextFloat() * range);
 				r=r + grey;
 				g=g + grey;
 				b=b + grey;

@@ -26,7 +26,7 @@ import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
  * 
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class ColorFilter implements ProceduralInterface, FilterInterface
+public class ColorFilter implements ProceduralInterface, FilterPixmapInterface
 {
 
 	/**
@@ -85,8 +85,8 @@ public class ColorFilter implements ProceduralInterface, FilterInterface
 		int maxalpha=(int) ((alpha <= 127) ? (alpha * 2.f + alpha / 127.f) : 255);
 		float alphamult=(maxalpha - minalpha) / 255.f;
 
-		for (int y=0; y < width; y++){
-			for (int x=0; x < height; x++){
+		for (int y=0; y < height; y++){
+			for (int x=0; x < width; x++){
 				int rgb=pixmap.getPixel(x, y);
 				int r=(rgb & 0xff000000) >>> 24;
 				int g=(rgb & 0x00ff0000) >>> 16;

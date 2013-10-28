@@ -15,44 +15,17 @@
  * the License.
  * ****************************************************************************
  */
-package net.shad.s3rend.gfx.pixmap.procedural;
+package net.shad.s3rend.gfx.pixmap.filter;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 
 /**
- * Fill pixmap
+ * Interface to define class with 3 pixmap process
+ * filter(source + source2) -> pixmapDst
  * 
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class Flat implements ProceduralInterface
+public interface Filter3PixmapInterface
 {
-
-	/**
-	 * 
-	 * @param pixmap 
-	 */
-	@Override
-	public void generate(Pixmap pixmap){
-		generate(pixmap, Color.BLACK);
-	}
-
-	/**
-	 * 
-	 * @param pixmap 
-	 */
-	@Override
-	public void random(Pixmap pixmap){
-		generate(pixmap, Color.BLACK);
-	}
-
-	/**
-	 * Fill pixmap
-	 * @param pixmap
-	 * @param color 
-	 */
-	public void generate(Pixmap pixmap, Color color){
-		pixmap.setColor(color);
-		pixmap.fill();
-	}
+	public void filter(final Pixmap pixmapDst, final Pixmap pixmapSource, final Pixmap pixmapSource2);
 }

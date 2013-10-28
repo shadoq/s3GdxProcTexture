@@ -24,7 +24,7 @@ import com.badlogic.gdx.graphics.Pixmap;
  * 
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public interface FilterInterface
+public interface FilterPixmapInterface
 {
 	public void filter(final Pixmap pixmap);
 }
