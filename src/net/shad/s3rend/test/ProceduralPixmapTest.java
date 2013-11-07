@@ -53,12 +53,18 @@ public class ProceduralPixmapTest implements ApplicationListener
 	private Texture texture;
 	private ProceduralInterface procText=null;
 	private String[] effectList={
+		//
 		// Procedural
+		//
 		Mandelbrot.class.getName(),
 		Julia.class.getName(),
 		Cell.class.getName(),
 		Flat.class.getName(),
+		FaddingPixel.class.getName(),
+		Falling.class.getName(),
+		//
 		// Filter
+		//
 		Noise.class.getName(),
 		NoiseGrey.class.getName(),
 		Glow.class.getName(),
@@ -68,15 +74,26 @@ public class ProceduralPixmapTest implements ApplicationListener
 		Invert.class.getName(),
 		Normals.class.getName(),
 		Alpha.class.getName(),
+		MultiplyMask.class.getName(),
+		//
 		// Disort
-		RotoZoom.class.getName(),};
+		//
+		RotoZoom.class.getName(),
+		Vortex.class.getName(),
+		Disort.class.getName(),};
 	private String[] effectListName={
+		//
 		// Procedural
+		//
 		Mandelbrot.class.getSimpleName(),
 		Julia.class.getSimpleName(),
 		Cell.class.getSimpleName(),
 		Flat.class.getSimpleName(),
+		FaddingPixel.class.getSimpleName(),
+		Falling.class.getSimpleName(),
+		//
 		// Filter
+		//
 		Noise.class.getSimpleName(),
 		NoiseGrey.class.getSimpleName(),
 		Glow.class.getSimpleName(),
@@ -86,8 +103,13 @@ public class ProceduralPixmapTest implements ApplicationListener
 		Invert.class.getSimpleName(),
 		Normals.class.getSimpleName(),
 		Alpha.class.getSimpleName(),
+		MultiplyMask.class.getSimpleName(),
+		//
 		// Disort
-		RotoZoom.class.getSimpleName(),};
+		//
+		RotoZoom.class.getSimpleName(),
+		Vortex.class.getSimpleName(),
+		Disort.class.getSimpleName(),};
 
 	@Override
 	public void create(){

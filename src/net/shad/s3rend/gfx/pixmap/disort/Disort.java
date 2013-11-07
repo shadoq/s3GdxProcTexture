@@ -17,23 +17,23 @@
  */
 package net.shad.s3rend.gfx.pixmap.disort;
 
-import com.badlogic.gdx.graphics.Color;
 import net.shad.s3rend.gfx.pixmap.filter.*;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.math.Vector3;
 import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
 
 /**
  *
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
-public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
+public class Disort implements ProceduralInterface, FilterPixmapInterface, Filter2PixmapInterface
 {
-	
-	private static final float PI=(float) Math.PI;
-	private static final float PI2=(float) Math.PI * 2;
-	private static final float PI1_2=(float) Math.PI * 0.5f;
-	private static final float PI1_4=(float) Math.PI * 0.25f;
-	private static final float DIV_PI2_360=(float) (1.0f / (360.0f / PI2));
+
+	private int widthDest;
+	private int heightDest;
+	private int[] sourceCache;
+	private int[] source2Cache;
+	private int[] maskCache;
 
 	/**
 	 *
@@ -41,7 +41,7 @@ public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 	 */
 	@Override
 	public void generate(final Pixmap pixmap){
-		generate(pixmap, 0.5f, 0.5f, 0, 1f, 1f);
+		generate(pixmap, pixmap, 1);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 	 */
 	@Override
 	public void filter(Pixmap pixmap){
-		generate(pixmap, 0.5f, 0.5f, 0, 1f, 1f);
+		generate(pixmap, pixmap, 1);
 	}
 
 	/**
@@ -59,7 +59,18 @@ public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 	 */
 	@Override
 	public void random(final Pixmap pixmap){
-		generate(pixmap, (float) Math.random(), (float) Math.random(), (float) (32.0f + Math.random() * 64), (float) Math.random(), (float) Math.random());
+		generate(pixmap, pixmap, (float) Math.random() * 8);
+	}
+
+	/**
+	 *
+	 * @param pixmapDst
+	 * @param pixmapSource
+	 * @param pixmapSource2
+	 */
+	@Override
+	public void filter(Pixmap pixmapDst, Pixmap pixmapMask){
+		generate(pixmapDst, pixmapMask, 1);
 	}
 
 	/**
@@ -67,67 +78,51 @@ public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 	 * @param pixmap
 	 * @param amplify - The bulge value
 	 */
-	public static void generate(final Pixmap pixmap, float centerX, float centerY, float rotate, float zoomX, float zoomY){
+	public static void generate(final Pixmap pixmapDest, final Pixmap pixmapMask, float power){
 
-		int width=pixmap.getWidth();
-		int height=pixmap.getHeight();
+		int widthDest=pixmapDest.getWidth();
+		int heightDest=pixmapDest.getHeight();
 
-		//
-		// Rotate
-		//
-		rotate=rotate * PI2;
+		int widthMask=pixmapMask.getWidth();
+		int heightMask=pixmapMask.getHeight();
 
-		//
-		// Zoom
-		//
-		zoomX=(float) Math.pow(.5f, zoomX - 1);
-		zoomY=(float) Math.pow(.5f, zoomY - 1);
+		int rgb=0;
+		int r=0;
+		int g=0;
+		int b=0;
+		int a=0;
 
-		float c=(float) (Math.cos(rotate));
-		float s=(float) (Math.sin(rotate));
+		Pixmap dstPixmap=new Pixmap(widthDest, widthDest, pixmapDest.getFormat());
 
-		float tw2=(float) width / 2.0f;
-		float th2=(float) height / 2.0f;
+		Vector3 norm=new Vector3();
 
-		float ys=s * -th2;
-		float yc=c * -th2;
+		for (int y=0; y < heightDest; y++){
+			for (int x=0; x < widthDest; x++){
 
-		Pixmap dstPixmap=new Pixmap(width, height, pixmap.getFormat());
-		dstPixmap.setColor(Color.RED);
-		dstPixmap.fill();
+				rgb=pixmapMask.getPixel(x % widthMask, y % heightMask);
+				r=(rgb & 0xff000000) >>> 24;
+				g=(rgb & 0x00ff0000) >>> 16;
+				b=(rgb & 0x0000ff00) >>> 8;
+				a=(rgb & 0x000000ff);
 
-		for (int y=0; y < height; y++){
+				norm.x=r - 127;
+				norm.y=g - 127;
+				norm.z=b - 127;
+				norm.nor();
 
-			//
-			// x' = cos(x)-sin(y) + Center X;
-			//
-			float u=(((c * -tw2) - ys) * zoomX) + centerX;
+				float v=(x + (norm.x * power)) % widthDest;
+				float u=(y + (norm.y * power)) % heightDest;
 
-			//
-			// y' = sin(x)+cos(y) + Center Y;
-			//
-			float v=(((s * -tw2) + yc) * zoomY) + centerY;
-
-			for (int x=0; x < width; x++){
-
-				int ut=u >= 0 ? (int) u : (int) u - 1;
 				int vt=v >= 0 ? (int) v : (int) v - 1;
-
-				//
-				// Texels
-				// 1 | 2
-				// -------
-				// 3 | 4
-				//
+				int ut=u >= 0 ? (int) u : (int) u - 1;
 
 				//
 				// Texel1
 				//
-				int rgb=pixmap.getPixel(vt, ut);
-				int r=(rgb & 0xff000000) >>> 24;
-				int g=(rgb & 0x00ff0000) >>> 16;
-				int b=(rgb & 0x0000ff00) >>> 8;
-				int a=(rgb & 0x000000ff);
+				rgb=pixmapDest.getPixel(vt, ut);
+				r=(rgb & 0xff000000) >>> 24;
+				g=(rgb & 0x00ff0000) >>> 16;
+				b=(rgb & 0x0000ff00) >>> 8;
 
 				int outR=r;
 				int outG=g;
@@ -137,7 +132,7 @@ public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 				//
 				// Texel2
 				//
-				rgb=pixmap.getPixel(vt, ut + height);
+				rgb=pixmapDest.getPixel(vt, ut + heightDest);
 				r=(rgb & 0xff000000) >>> 24;
 				g=(rgb & 0x00ff0000) >>> 16;
 				b=(rgb & 0x0000ff00) >>> 8;
@@ -149,7 +144,7 @@ public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 				//
 				// Texel3
 				//
-				rgb=pixmap.getPixel((vt + width), ut);
+				rgb=pixmapDest.getPixel((vt + widthDest), ut);
 				r=(rgb & 0xff000000) >>> 24;
 				g=(rgb & 0x00ff0000) >>> 16;
 				b=(rgb & 0x0000ff00) >>> 8;
@@ -161,7 +156,7 @@ public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 				//
 				// Texel 4
 				//
-				rgb=pixmap.getPixel(vt + width, ut + height);
+				rgb=pixmapDest.getPixel(vt + widthDest, ut + heightDest);
 				r=(rgb & 0xff000000) >>> 24;
 				g=(rgb & 0x00ff0000) >>> 16;
 				b=(rgb & 0x0000ff00) >>> 8;
@@ -181,19 +176,8 @@ public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 				outB=(outB > 0) ? outB : 0;
 
 				dstPixmap.drawPixel(x, y, ((int) outR << 24) | ((int) outG << 16) | ((int) outB << 8) | outA);
-
-				//
-				// Vectors X
-				//
-				u+=c * zoomX;
-				v+=s * zoomY;
 			}
-			//
-			// Vectors Y
-			//
-			ys+=s;
-			yc+=c;
 		}
-		pixmap.drawPixmap(dstPixmap, 0, 0);
+		pixmapDest.drawPixmap(dstPixmap, 0, 0);
 	}
-};
+}

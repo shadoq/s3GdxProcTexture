@@ -22,8 +22,9 @@ import com.badlogic.gdx.math.Vector3;
 import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
 
 /**
- * Class to generate normal map with image
- * Using Sobel filter operation to detect edge of the image
+ * Class to generate normal map with image Using Sobel filter operation to
+ * detect edge of the image
+ *
  * @author Jaroslaw Czub (http://shad.net.pl)
  */
 public class Normals implements ProceduralInterface, FilterPixmapInterface
@@ -58,6 +59,7 @@ public class Normals implements ProceduralInterface, FilterPixmapInterface
 
 	/**
 	 * Main normal map filter process
+	 *
 	 * @param pixmap
 	 * @param amplify - The bulge value
 	 */
@@ -67,6 +69,7 @@ public class Normals implements ProceduralInterface, FilterPixmapInterface
 		int height=pixmap.getHeight();
 
 		Pixmap dstPixmap=new Pixmap(width, height, pixmap.getFormat());
+		Vector3 norm=new Vector3();
 
 		for (int y=0; y < height; y++){
 			for (int x=0; x < width; x++){
@@ -137,7 +140,7 @@ public class Normals implements ProceduralInterface, FilterPixmapInterface
 				dY+=rXnYn * 1.0f;
 				dY+=rXYn * 2.0f;
 				dY+=rXpYn * 1.0f;
-				
+
 				dY+=rXnYp * -1.0f;
 				dY+=rXYp * -2.0f;
 				dY+=rXpYp * -1.0f;
@@ -153,7 +156,7 @@ public class Normals implements ProceduralInterface, FilterPixmapInterface
 				dX=rXnYn * -1.0f;
 				dX+=rXnY * -2.0f;
 				dX+=rXnYp * -1.0f;
-				
+
 				dX+=rXpYn * 1.0f;
 				dX+=rXpY * 2.0f;
 				dX+=rXpYp * 1.0f;
@@ -161,7 +164,6 @@ public class Normals implements ProceduralInterface, FilterPixmapInterface
 				//
 				// Compute the cross product of the two vectors
 				//
-				Vector3 norm=new Vector3();
 				norm.x=-dX * amplify / 255.0f;
 				norm.y=-dY * amplify / 255.0f;
 				norm.z=1.0f;
@@ -175,7 +177,7 @@ public class Normals implements ProceduralInterface, FilterPixmapInterface
 				// Store
 				// [-1.0f->1.0f] -> [0 -> 255]
 				//
-				r=(int) ((norm.x + 1.0f) / 2.0f * 255.0f);	
+				r=(int) ((norm.x + 1.0f) / 2.0f * 255.0f);
 				g=(int) ((norm.y + 1.0f) / 2.0f * 255.0f);
 				b=(int) ((norm.z + 1.0f) / 2.0f * 255.0f);
 
