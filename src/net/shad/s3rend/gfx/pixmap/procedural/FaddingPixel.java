@@ -33,11 +33,9 @@ public class FaddingPixel implements ProceduralInterface
 	/**
 	 *
 	 * @param pixmap
-	 * @param xCenter
-	 * @param yCenter
-	 * @param xSize
-	 * @param ySize
-	 * @param maxIterations
+	 * @param speed
+	 * @param number
+	 * @param mode
 	 */
 	public static void generate(final Pixmap pixmap, int speed, int number, int mode){
 

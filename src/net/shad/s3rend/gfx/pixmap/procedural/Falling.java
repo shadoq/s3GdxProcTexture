@@ -34,7 +34,7 @@ public class Falling implements ProceduralInterface
 	}
 
 	/**
-	 * 
+	 *
 	 * @param pixmap
 	 * @param length
 	 * @param number
@@ -43,7 +43,7 @@ public class Falling implements ProceduralInterface
 	 * @param randomIntervall
 	 * @param redValue
 	 * @param greenValue
-	 * @param blueValue 
+	 * @param blueValue
 	 */
 	public static void generate(final Pixmap pixmap, int length, float number, int direction, int randomColor, float randomIntervall, int redValue, int greenValue, int blueValue){
 

@@ -74,9 +74,10 @@ public class Disort implements ProceduralInterface, FilterPixmapInterface, Filte
 	}
 
 	/**
-	 *
-	 * @param pixmap
-	 * @param amplify - The bulge value
+	 * 
+	 * @param pixmapDest
+	 * @param pixmapMask
+	 * @param power 
 	 */
 	public static void generate(final Pixmap pixmapDest, final Pixmap pixmapMask, float power){
 

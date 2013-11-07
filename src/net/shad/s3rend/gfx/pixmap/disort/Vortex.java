@@ -64,9 +64,13 @@ public class Vortex implements ProceduralInterface, FilterPixmapInterface
 	}
 
 	/**
-	 *
+	 * 
 	 * @param pixmap
-	 * @param amplify - The bulge value
+	 * @param centerX
+	 * @param centerY
+	 * @param rayX
+	 * @param rayY
+	 * @param twist 
 	 */
 	public static void generate(final Pixmap pixmap, float centerX, float centerY, float rayX, float rayY, float twist){
 

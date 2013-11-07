@@ -28,7 +28,7 @@ import net.shad.s3rend.gfx.pixmap.procedural.ProceduralInterface;
  */
 public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 {
-	
+
 	private static final float PI=(float) Math.PI;
 	private static final float PI2=(float) Math.PI * 2;
 	private static final float PI1_2=(float) Math.PI * 0.5f;
@@ -65,7 +65,11 @@ public class RotoZoom implements ProceduralInterface, FilterPixmapInterface
 	/**
 	 *
 	 * @param pixmap
-	 * @param amplify - The bulge value
+	 * @param centerX
+	 * @param centerY
+	 * @param rotate
+	 * @param zoomX
+	 * @param zoomY
 	 */
 	public static void generate(final Pixmap pixmap, float centerX, float centerY, float rotate, float zoomX, float zoomY){
 
